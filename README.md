@@ -1,6 +1,6 @@
 # 3rd-Party GraphQL integration with AEM Commerce and CIF on Adobe I/O Runtime by [Sagepath](https://www.sagepath.com)
 
-[![sagepath](images/logo.svg  "Reply Sagepath" )](https://www.sagepath.com)
+[![sagepath](images/reply_Sagepath_Logo.jpg  "Reply Sagepath" )](https://www.sagepath.com)
 
 ## Introduction
 
