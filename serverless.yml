@@ -1,0 +1,48 @@
+service: saleor-graphql
+
+package:
+  individually: true
+  exclude:
+    - ./**
+
+provider:
+  name: openwhisk
+  runtime: nodejs:default
+  ignore_certs: true
+  service: saleor-graphql
+
+plugins:
+  - serverless-openwhisk
+  - serverless-webpack
+
+resources:
+  packages:
+    saleor-graphql:
+      parameters:
+
+functions:
+  dispatcher:
+    name: saleor-graphql/dispatcher
+    handler: cif/common/dispatcher.main
+    concurrency: 200
+    annotations:
+      web-export: true
+    parameters:
+      remoteSchemas:
+        product:
+          order: 10
+          action: saleor-graphql/product
+
+  product:
+    name: saleor-graphql/product
+    handler: cif/product/src/productResolver.main
+    concurrency: 200
+
+  # This deploys a GraphQL introspection endpoint that includes all the Magento types and fields
+  # used by the AEM/Magento integration.
+  cif-schema:
+    name: saleor-graphql/cif-schema
+    handler: cif/documentation/introspection.main
+    concurrency: 200
+    annotations:
+      web-export: true
